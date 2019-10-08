@@ -4,19 +4,20 @@ import {
   Input,
   Output,
   EventEmitter,
+  HostBinding,
 } from '@angular/core';
-import { popupFadeDown } from './popup-animation';
+import { popupFadeDown, fadeInDown } from './popup-animation';
 
 @Component({
   selector: 'app-popup-window',
   templateUrl: './popup-window.component.html',
   styleUrls: ['./popup-window.component.css'],
-  animations: [popupFadeDown]
+  animations: [popupFadeDown, fadeInDown]
 })
 export class PopupWindowComponent implements OnInit {
   @Output() popupClose = new EventEmitter();
   @Input() disableClose: boolean;
-  @Input() animation = false;
+  @HostBinding('@fadeInDown') fadeInDown: any;
   constructor() { }
 
   ngOnInit() {

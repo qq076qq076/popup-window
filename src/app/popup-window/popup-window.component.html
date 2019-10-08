@@ -1,7 +1,6 @@
 <div class="mask"
-     (click)="popupClose.emit()"
-     [@popupFadeDown]="animation">
-  <div class="content">
-    <ng-content></ng-content>
-  </div>
+     (click)="popupClose.emit()">
+</div>
+<div class="content">
+  <ng-content></ng-content>
 </div>

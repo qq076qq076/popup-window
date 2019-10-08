@@ -23,7 +23,6 @@ export class PopupService {
     const pickerRef = this.componentFactoryResolver.resolveComponentFactory(component).create(this.injector);
     const pickerInstance = pickerRef.instance;
     pickerInstance.popupClose.subscribe(this.close.bind(this, pickerRef));
-    pickerInstance.animation = true;
     pickerInstance.data = data;
     this.applicationRef.attachView(pickerRef.hostView);
 
@@ -33,7 +32,7 @@ export class PopupService {
   }
 
   close(componentRef: ComponentRef<any>) {
-    componentRef.instance.animation = false;
-    this.applicationRef.detachView(componentRef.hostView);
+    componentRef.destroy();
+    // this.applicationRef.detachView(componentRef.hostView);
   }
 }
