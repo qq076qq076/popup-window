@@ -1,6 +1,7 @@
-<div class="mask"
-     (click)="popupClose.emit()">
-</div>
-<div class="content">
+<div #content
+     class="content"
+     [ngStyle]="contentStyle">
   <ng-content></ng-content>
+  <i class="close"
+     (click)="popupClose.emit()"></i>
 </div>

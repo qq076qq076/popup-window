@@ -2,7 +2,7 @@ import { trigger, animate, transition, style, keyframes, query, stagger } from '
 
 export const popupFadeDown =
   trigger('popupFadeDown', [
-    transition('void => *', [
+    transition('false => true', [
       animate('.3s cubic-bezier(0.22, 0.73, 1, 1)', keyframes([
         style({
           opacity: 0.7,
@@ -16,7 +16,7 @@ export const popupFadeDown =
         })
       ]))
     ]),
-    transition('* => void', [
+    transition('true => false', [
       animate('.3s cubic-bezier(0.22, 0.73, 1, 1)', keyframes([
         style({ opacity: 1, transform: 'translate(-50%, -50%)', offset: 0 }),
         style({ opacity: 0.2, transform: 'translate(-50%, -51%)', offset: 1 })

@@ -1,5 +1,5 @@
 import { Component, ComponentRef } from '@angular/core';
-import { PopupService } from './popup.service';
+import { PopupService } from './popup-window/popup.service';
 import { ShowContentComponent } from './show-content/show-content.component';
 
 @Component({
