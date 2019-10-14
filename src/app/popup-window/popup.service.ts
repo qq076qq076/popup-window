@@ -24,34 +24,20 @@ export class PopupService {
     private injector: Injector
   ) { }
 
-  containerElement: HTMLElement;
-
-  open<T>(component: Type<Popup>): ComponentRef<Popup> {
-    const content = this.componentFactoryResolver.resolveComponentFactory(OverlayComponent);
-    const { contentComponentRef, ngContent } = this.createContent(component);
-    const overlayRef = content.create(this.injector, ngContent);
-    // overlayRef.instance.popupClose.subscribe(this.close.bind(this, overlayRef))
-    if (contentComponentRef.instance) {
-      contentComponentRef.instance.popupClose.subscribe(this.close.bind(this, overlayRef));
-    }
-    this.applicationRef.attachView(overlayRef.hostView);
-
-    const { nativeElement } = overlayRef.location;
-    document.body.appendChild(nativeElement);
-    return contentComponentRef;
-  }
-
   close(componentRef: ComponentRef<any>) {
     componentRef.destroy();
-    // this.applicationRef.detachView(componentRef.hostView);
   }
 
-  createContent<T>(content: Type<T>): { contentComponentRef: ComponentRef<T>, ngContent: any[][] } {
-    const factory = this.componentFactoryResolver.resolveComponentFactory(content);
-    const contentComponentRef = factory.create(this.injector);
-    return {
-      contentComponentRef,
-      ngContent: [[contentComponentRef.location.nativeElement], [document.createTextNode('Second ng-content')]]
-    };
+  open(component: Type<any>, closeEvent, data?) {
+    const factory = this.componentFactoryResolver.resolveComponentFactory(OverlayComponent);
+    const componentRef = factory.create(this.injector);
+    componentRef.instance.data = data;
+    componentRef.instance.component = component;
+    componentRef.instance.popupClose.subscribe(closeEvent);
+
+    this.applicationRef.attachView(componentRef.hostView);
+    const { nativeElement } = componentRef.location;
+    document.body.appendChild(nativeElement);
+    return componentRef;
   }
 }

@@ -16,7 +16,10 @@ export class AppComponent {
   ) { }
 
   showPopup() {
-    this.comRef = this.popupService.open(ShowContentComponent);
+    this.comRef = this.popupService.open(
+      ShowContentComponent,
+      this.close.bind(this),
+      { message: 'here is message' });
   }
 
   close() {

@@ -1,1 +1,8 @@
-<ng-content></ng-content>
+<!-- <ng-content></ng-content> -->
+<div #content
+     class="content">
+  <ng-container *ngComponentOutlet="component;injector:myInjector" (popupClose)="popupClose.emit()"></ng-container>
+
+  <i class="close"
+     (click)="popupClose.emit()"></i>
+</div>

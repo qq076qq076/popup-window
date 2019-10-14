@@ -18,7 +18,6 @@ import { OverlayComponent } from './popup-window/overlay/overlay.component';
     BrowserModule,
     BrowserAnimationsModule
   ],
-  providers: [ShowContentComponent],
   entryComponents: [
     ShowContentComponent,
     OverlayComponent
