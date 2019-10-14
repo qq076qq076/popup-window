@@ -31,7 +31,11 @@ export class PopupService {
   open(component: Type<any>, closeEvent, data?) {
     const factory = this.componentFactoryResolver.resolveComponentFactory(OverlayComponent);
     const componentRef = factory.create(this.injector);
-    componentRef.instance.data = data;
+    const bindData = {
+      ...data,
+      close: () => { this.close(componentRef); }
+    };
+    componentRef.instance.data = bindData;
     componentRef.instance.component = component;
     componentRef.instance.popupClose.subscribe(closeEvent);
 

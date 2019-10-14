@@ -1,14 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { InjectData } from '../popup-window/overlay/overlay.component';
-import { Popup } from '../popup-window/popup.service';
 
 @Component({
   selector: 'app-show-content',
   templateUrl: './show-content.component.html',
   styleUrls: ['./show-content.component.css']
 })
-export class ShowContentComponent implements OnInit, Popup {
-  @Output() popupClose = new EventEmitter();
+export class ShowContentComponent implements OnInit {
   data;
   constructor(
     private InjectData: InjectData,
@@ -17,5 +15,9 @@ export class ShowContentComponent implements OnInit, Popup {
   }
 
   ngOnInit() {
+  }
+
+  close() {
+    this.data.close();
   }
 }
