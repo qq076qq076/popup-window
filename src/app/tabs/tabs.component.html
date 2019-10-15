@@ -1,0 +1,9 @@
+<div class="tab-area">
+  <div class="tab"
+       *ngFor="let tab of labelList"
+       [ngClass]="{'active': showTab.label === tab}"
+       (click)="toggleTab(tab)">
+    {{tab}}
+  </div>
+</div>
+<ng-template *ngTemplateOutlet="showTab.templateRef"></ng-template>

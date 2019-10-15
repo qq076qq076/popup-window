@@ -10,6 +10,8 @@ import { ShowContentComponent } from './show-content/show-content.component';
 export class AppComponent {
   title = 'popup-window';
   comRef: ComponentRef<any>;
+  titleList: string[] = ['表單設定', '題目編輯'];
+  tab: string = this.titleList[0];
 
   constructor(
     private popupService: PopupService
@@ -24,5 +26,13 @@ export class AppComponent {
 
   close() {
     this.popupService.close(this.comRef);
+  }
+
+  changeTab(tab: string) {
+    this.tab = tab;
+  }
+
+  console() {
+    console.log('click')
   }
 }

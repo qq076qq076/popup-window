@@ -1,5 +1,10 @@
 <div>
   <h1> popup windows test</h1>
   <button (click)="showPopup()">show popup</button>
-  <button (click)="close()">close popup</button>
+</div>
+<div class="tab-area">
+  <app-tabs (changeTab)="changeTab($event)">
+    <app-tab-item label="tab1">tab1 content</app-tab-item>
+    <app-tab-item label="tab2">tab2 content</app-tab-item>
+  </app-tabs>
 </div>
