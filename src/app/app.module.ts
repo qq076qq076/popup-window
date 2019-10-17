@@ -20,7 +20,7 @@ import { TabItemComponent } from './tab/tab-item/tab-item.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   entryComponents: [
     ShowContentComponent,

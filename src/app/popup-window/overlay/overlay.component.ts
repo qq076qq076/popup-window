@@ -13,7 +13,7 @@ import {
   ComponentRef
 } from '@angular/core';
 import { fadeInDown } from './popup-animation';
-import { Popup } from '../popup.service';
+import { Popup, PopupSetting } from '../popup.service';
 
 @Component({
   selector: 'app-overlay',
@@ -33,7 +33,7 @@ export class OverlayComponent {
     private injector: Injector,
   ) { }
 
-  createComponent(component: Type<Popup>, closeEvent: () => void, data?) {
+  createComponent(component: Type<Popup>, data: PopupSetting) {
     const factory = this.componentFactoryResolver.resolveComponentFactory(component);
     this.injectComponentRef = factory.create(this.injector);
     this.injectComponentRef.instance.data = data;

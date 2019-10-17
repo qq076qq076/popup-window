@@ -1,10 +1,36 @@
 <div>
   <h1> popup windows test</h1>
   <button (click)="showPopup()">show popup</button>
+  <button (click)="showTab = !showTab">toggle tab</button>
 </div>
-<div class="tab-area">
+<div class="tab-area"
+     *ngIf="showTab">
   <app-tab (changeTab)="changeTab($event)">
     <app-tab-item label="tab1">tab1 content</app-tab-item>
     <app-tab-item label="tab2">tab2 content</app-tab-item>
   </app-tab>
+</div>
+<div class="tab-area">
+  <app-step-tab (changeTab)="changeTab($event)" #stepTab>
+    <app-tab-item label="tab1">
+      <p> tab1 content</p>
+      <button (click)="lastStep()">last step</button>
+      <button (click)="nextStep()">next step</button>
+    </app-tab-item>
+    <app-tab-item label="tab2">
+      <p> tab2 content</p>
+      <button (click)="lastStep()">last step</button>
+      <button (click)="nextStep()">next step</button>
+    </app-tab-item>
+    <app-tab-item label="tab3">
+      <p> tab3 content</p>
+      <button (click)="lastStep()">last step</button>
+      <button (click)="nextStep()">next step</button>
+    </app-tab-item>
+    <app-tab-item label="tab4">
+      <p> tab4 content</p>
+      <button (click)="lastStep()">last step</button>
+      <button (click)="nextStep()">next step</button>
+    </app-tab-item>
+  </app-step-tab>
 </div>

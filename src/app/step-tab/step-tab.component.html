@@ -1,1 +1,13 @@
-<p>step-tab works!</p>
+<div class="tab-area">
+  <div class="tab"
+       *ngFor="let tab of tabItemList;let step = index"
+       [attr.index]="step+1"
+       [ngClass]="{'active': showTab == tab,'pointer':readyStep >= step}"
+       (click)="readyStep >= step && setCurrentTab(tab)">
+    {{tab.label}}
+  </div>
+</div>
+<div class="progress"
+     [style.width]="getwidth()"></div>
+
+<ng-template *ngTemplateOutlet="showTab.templateRef"></ng-template>

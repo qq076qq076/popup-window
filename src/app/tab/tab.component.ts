@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, ContentChildren, AfterContentInit } from '@angular/core';
 import { TabItemComponent } from './tab-item/tab-item.component';
 
-interface ChangeParam {
+export interface ChangeParam {
   LastTab: string;
   NextTab: string;
 }

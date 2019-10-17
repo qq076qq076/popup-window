@@ -14,6 +14,13 @@ export interface Popup {
   data: any;
 }
 
+export interface PopupSetting {
+  style?;
+  title?;
+  close?: () => void;
+  [propname: string]: any;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,14 +36,11 @@ export class PopupService {
     componentRef.destroy();
   }
 
-  open(component: Type<any>, closeEvent: () => void, data?) {
+  open(component: Type<any>, data: PopupSetting) {
     const factory = this.componentFactoryResolver.resolveComponentFactory(OverlayComponent);
     const overlayRef = factory.create(this.injector);
-    const bindData = {
-      ...data,
-      close: closeEvent,
-    };
-    overlayRef.instance.createComponent(component, closeEvent, bindData);
+    data.close = data.close || this.close.bind(this, overlayRef);
+    overlayRef.instance.createComponent(component, data);
     this.applicationRef.attachView(overlayRef.hostView);
     const { nativeElement } = overlayRef.location;
     document.body.appendChild(nativeElement);
