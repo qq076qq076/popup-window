@@ -20,7 +20,7 @@ export class AppComponent {
   showPopup() {
     this.comRef = this.popupService.open(
       ShowContentComponent,
-      this.close.bind(this),
+      () => { this.close(); },
       { message: 'here is message' });
   }
 
@@ -29,7 +29,7 @@ export class AppComponent {
   }
 
   changeTab(tab: string) {
-    this.tab = tab;
+    console.log(tab)
   }
 
   console() {

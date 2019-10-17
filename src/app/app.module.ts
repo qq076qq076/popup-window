@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { ShowContentComponent } from './show-content/show-content.component';
 import { OverlayComponent } from './popup-window/overlay/overlay.component';
 import { StepTabComponent } from './step-tab/step-tab.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { TabItemComponent } from './tabs/tab-item/tab-item.component';
+import { TabComponent } from './tab/tab.component';
+import { TabItemComponent } from './tab/tab-item/tab-item.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { TabItemComponent } from './tabs/tab-item/tab-item.component';
     ShowContentComponent,
     OverlayComponent,
     StepTabComponent,
-    TabsComponent,
+    TabComponent,
     TabItemComponent
   ],
   imports: [

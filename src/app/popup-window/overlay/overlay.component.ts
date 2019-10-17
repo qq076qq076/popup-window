@@ -1,13 +1,19 @@
-import { Component, HostBinding, Input, Type, Injector, Injectable, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  ElementRef,
+  ComponentFactoryResolver,
+  Injector,
+  Type,
+  Output,
+  EventEmitter,
+  ViewChild,
+  EmbeddedViewRef,
+  ApplicationRef,
+  ComponentRef
+} from '@angular/core';
 import { fadeInDown } from './popup-animation';
-
-@Injectable()
-export class InjectData {
-  data;
-  constructor(data) {
-    this.data = data;
-  }
-}
+import { Popup } from '../popup.service';
 
 @Component({
   selector: 'app-overlay',
@@ -17,17 +23,26 @@ export class InjectData {
 })
 export class OverlayComponent {
   @HostBinding('@fadeInDown') fadeInDown;
+  @ViewChild('content', { static: true }) content: ElementRef<any>;
   @Output() popupClose = new EventEmitter();
-  @Input() component: Type<any>;
-  @Input() set data(data) {
-    this.myInjector = Injector.create({
-      providers:
-        [{ provide: InjectData, useValue: { data } }],
-      parent: this.injector
-    });
-  }
-  myInjector;
+  injectComponentRef: ComponentRef<Popup>;
   constructor(
-    private injector: Injector
+    public elementRef: ElementRef,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private applicationRef: ApplicationRef,
+    private injector: Injector,
   ) { }
+
+  createComponent(component: Type<Popup>, closeEvent: () => void, data?) {
+    const factory = this.componentFactoryResolver.resolveComponentFactory(component);
+    this.injectComponentRef = factory.create(this.injector);
+    this.injectComponentRef.instance.data = data;
+    this.applicationRef.attachView(this.injectComponentRef.hostView);
+    const { rootNodes } = this.injectComponentRef.hostView as EmbeddedViewRef<any>;
+    this.content.nativeElement.appendChild(rootNodes[0]);
+  }
+
+  close() {
+    this.injectComponentRef.instance.close();
+  }
 }

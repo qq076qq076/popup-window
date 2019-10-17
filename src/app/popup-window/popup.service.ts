@@ -10,7 +10,8 @@ import {
 import { OverlayComponent } from './overlay/overlay.component';
 
 export interface Popup {
-  popupClose: EventEmitter<any>;
+  close: () => void;
+  data: any;
 }
 
 @Injectable({
@@ -28,20 +29,18 @@ export class PopupService {
     componentRef.destroy();
   }
 
-  open(component: Type<any>, closeEvent, data?) {
+  open(component: Type<any>, closeEvent: () => void, data?) {
     const factory = this.componentFactoryResolver.resolveComponentFactory(OverlayComponent);
-    const componentRef = factory.create(this.injector);
+    const overlayRef = factory.create(this.injector);
     const bindData = {
       ...data,
-      close: () => { this.close(componentRef); }
+      close: closeEvent,
     };
-    componentRef.instance.data = bindData;
-    componentRef.instance.component = component;
-    componentRef.instance.popupClose.subscribe(closeEvent);
-
-    this.applicationRef.attachView(componentRef.hostView);
-    const { nativeElement } = componentRef.location;
+    overlayRef.instance.createComponent(component, closeEvent, bindData);
+    this.applicationRef.attachView(overlayRef.hostView);
+    const { nativeElement } = overlayRef.location;
     document.body.appendChild(nativeElement);
-    return componentRef;
+
+    return overlayRef;
   }
 }

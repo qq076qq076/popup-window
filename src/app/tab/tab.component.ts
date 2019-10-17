@@ -1,14 +1,19 @@
 import { Component, Output, EventEmitter, ContentChildren, AfterContentInit } from '@angular/core';
 import { TabItemComponent } from './tab-item/tab-item.component';
 
+interface ChangeParam {
+  LastTab: string;
+  NextTab: string;
+}
+
 @Component({
-  selector: 'app-tabs',
-  templateUrl: './tabs.component.html',
-  styleUrls: ['./tabs.component.css']
+  selector: 'app-tab',
+  templateUrl: './tab.component.html',
+  styleUrls: ['./tab.component.css']
 })
-export class TabsComponent implements AfterContentInit {
+export class TabComponent implements AfterContentInit {
   // 切換tab時觸發 回傳要切換過去的tab的label
-  @Output() changeTab = new EventEmitter<string>();
+  @Output() changeTab = new EventEmitter<ChangeParam>();
   @ContentChildren(TabItemComponent) tabItemList: TabItemComponent[];
   labelList: string[] = [];
   showTab: TabItemComponent;
@@ -16,9 +21,10 @@ export class TabsComponent implements AfterContentInit {
 
   toggleTab(tab: string) {
     if (tab !== this.showTab.label) {
+      const lastTab = this.showTab.label;
       this.showTab = this.getTab(tab);
       this.showTab.click.emit();
-      this.changeTab.emit(tab);
+      this.changeTab.emit({ LastTab: lastTab, NextTab: tab });
     }
   }
 
